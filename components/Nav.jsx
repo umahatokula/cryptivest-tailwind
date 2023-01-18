@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image';
 import { RiMoonFill } from "react-icons/ri";
 import { useAccount } from 'wagmi'
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useIsMounted } from '../hooks/useIsMounted';
+import { ConnectKitButton } from "connectkit";
+import MobileMenu from './MobileMenu';
 
 function Nav() {
 
@@ -19,7 +20,7 @@ function Nav() {
 
   return (
     <>
-      <nav id="header" className="w-full z-10 top-0 bg-transparent relative py-6 md:w-10/12 md:mx-auto">
+      <nav id="header" className="w-full z-10 top-0 bg-transparent relative pt-6 pb-12 md:w-10/12 md:mx-auto">
         <div className="flex justify-between items-center">
         <Image
           src="/CryptiVest-light.png"
@@ -43,7 +44,7 @@ function Nav() {
             {/* Connection Status */}              
               {
                 mounted ?
-                  <ConnectButton />
+                  <ConnectKitButton />
                 : (
                   <p>Not mounted</p>
                 )
@@ -51,7 +52,7 @@ function Nav() {
 
             {/* Mobile Menu */}
             <div className="ml-2 md:hidden pt-6">
-              {/* <MobileMenu/> */}
+              <MobileMenu />
             </div>
 
         </div>

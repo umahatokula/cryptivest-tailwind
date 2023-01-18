@@ -5,10 +5,12 @@ import { useContract, useSigner } from 'wagmi'
 import { fetchSigner } from '@wagmi/core'
 import { getContract, getProvider } from '@wagmi/core'
 import { toEther, toWei, notify } from '../utils/helpers'
+import { useRouter } from 'next/router'
 import {CONTRACT_ABI, CONTRACT_ADDRESS} from '../constants';
 
 function Stake() {
     const mounted = useIsMounted();
+    const router = useRouter()
 
     const { data: signer } = useSigner();
     const contract = useContract({
@@ -23,14 +25,12 @@ function Stake() {
     const [interestRate, setInterestRate] = useState(() => 0);
 
     const updateStakingOptions = async (numOfDays) => {
-        console.log(numOfDays);
         getInterestRate(numOfDays)
         setSelectedDuration(numOfDays)
     }
 
     const handleChangeAmount = (event) => {
         setAmount(event.target.value);
-        console.log(amount)
     };
     
     const getLockPeriods = async () => {
@@ -38,7 +38,7 @@ function Stake() {
             
         console.log(contract)
             let durations = await contract.getLockPeriods();
-            console.log('DURATIONS', durations)
+
             durations = durations.map((duration) => duration.toString())
 
             setLockPeriods(durations)
@@ -53,7 +53,6 @@ function Stake() {
         try {
             
             const rate = await contract.getInterestRate(numDays);
-            console.log("RATE", rate);
 
             setInterestRate(rate.toString() / 100)
 
@@ -66,11 +65,8 @@ function Stake() {
 
         e.preventDefault();
 
-        console.log(selectedDuration)
-
         if(selectedDuration === undefined) {
             notify('Select a staking length', 'error');
-            console.log('Selected', selectedDuration);
             return;
         }
 
@@ -79,7 +75,7 @@ function Stake() {
             return;
         }
         
-        try {
+        // try {
 
             const signer = await fetchSigner()
             const contract = getContract({
@@ -92,19 +88,21 @@ function Stake() {
             
             // stake ether
             const staked = await contract.stakeEther(selectedDuration, data)
-            console.log("staked", staked);
     
             // reset amount
             setAmount("");
 
             // congrats notification
             notify('Congrats. Staking successful', 'success');
-
+            router.push('/')
+            
     
-        } catch (error) {
-            console.log(error, "error");
-            throw new Error("Error while staking");
-        }
+        // } catch (error) {
+        //     console.log(error, "error");
+        //     notify('Error while staking', 'error');
+        //     throw new Error("Error while staking");
+
+        // }
     }
 
     useEffect(() => {

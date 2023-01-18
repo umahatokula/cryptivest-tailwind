@@ -84,20 +84,20 @@ export default function Home() {
   useEffect(() => {
     getAssets(assetIds);
     console.log(signer);
-  }, [assetIds])
+  }, [assetIds, address])
 
   return (
     <div>
       <div className="w-full md:max-w-3xl mb-20 mx-auto">
       
-        <p className="font-bold tracking-widest text-transparent text-sm mt-2 mb-12 uppercase bg-clip-text bg-gradient-to-r from-[#ffd900] to-[#39FF14] text-center md:mb-2 md:mt-24">stakeon</p>
-        <p className="animate-text p-2 text-5xl text-center font-black leading-snug md:text-6xl bg-clip-text text-transparent bg-gradient-to-r from-sky-500 via-yellow-500 to-violet-900">CryptiVest Defi Staking</p>
-        <p className="tracking-widest text-sm text-violet-400 mt-12 text-center font-thin md:text-lg md:mt-10">Dedicated To Increasing User Staking Income</p>
+        <p className="font-bold tracking-widest text-transparent text-sm mt-2 mb-12 uppercase bg-clip-text bg-gradient-to-r from-[#ffd900] to-[#39FF14] text-center md:mb-2 md:mt-18">stakeon</p>
+        <p className="p-2 text-5xl text-center font-black leading-snug md:text-6xl bg-clip-text text-white">CryptiVest Defi Staking</p>
+        <p className="tracking-widest text-xg mt-12 text-center font-thin md:text-lg md:mt-10 animate-text bg-clip-text text-transparent bg-gradient-to-r from-sky-200 via-blue-500 to-blue-700">Dedicated To Increasing User Staking Income</p>
 
         {/* call to action */}
         <div className="flex w-full mt-24 justify-center items-center space-x-4">
           <Link href="/stake" className="bg-gradient-to-br from-[#0047ff] to-[#57048a] px-10 py-3 rounded-full text-white font-black hover:bg-red-300">Start Staking</Link>
-          <a className="bg-transparent border-2 border-white px-10 py-3 rounded-full text-white font-black" href="">Tiers</a>
+          <Link href="/tiers" className="bg-transparent border-2 border-white px-10 py-3 rounded-full text-white font-black">Tiers</Link>
         </div>
       </div>
 
@@ -106,11 +106,17 @@ export default function Home() {
         <p className="text-3xl text-white mb-12 md:text-3xl">My Assets</p>
 
         {/* <!-- <AssetCard /> --> */}
-        {assets.length > 0 && assets.reverse().map((asset,idx) => (
-          <div key={idx} className="space-y-4">
-            <AssetCard asset={asset} />
-          </div>
-        ))}
+        {
+          assets.length > 0 ? (
+            assets.reverse().map((asset,idx) => (
+              <div key={idx} className="space-y-4">
+                <AssetCard asset={asset} />
+              </div>
+            ))
+          ) : (
+            <div className='text-white text-center'>No assets</div>
+          )
+        }
 
       </div>
 

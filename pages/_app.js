@@ -1,47 +1,39 @@
-import '@/styles/globals.css'
-import '@rainbow-me/rainbowkit/styles.css';
-import {
-  darkTheme,
-  getDefaultWallets,
-  RainbowKitProvider,
-} from '@rainbow-me/rainbowkit';
-import { configureChains, createClient, WagmiConfig } from 'wagmi';
-import { polygon, polygonMumbai, hardhat } from 'wagmi/chains';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
-import { publicProvider } from 'wagmi/providers/public';
-import { ContextWrapper } from '@/contexts/ContextWrapper';
-import Nav from '@/components/Nav';
+import '@/styles/globals.css';
+import { WagmiConfig, createClient } from "wagmi";
+import { ConnectKitProvider, getDefaultClient } from "connectkit";
+import { mainnet, polygon, polygonMumbai } from "wagmi/chains";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import Nav from '@/components/Nav';
+import Footer from '@/components/Footer';
+import { ContextWrapper } from '@/contexts/ContextWrapper';
 
-const { chains, provider } = configureChains(
-  [polygon, polygonMumbai, hardhat],
-  [
-    publicProvider(),
-    alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
-  ]
+
+const alchemyId = process.env.ALCHEMY_ID;
+
+// Choose which chains you'd like to show
+const chains = [mainnet, polygon, polygonMumbai];
+
+const client = createClient(
+  getDefaultClient({
+    appName: "Your App Name",
+    alchemyId,
+    chains,
+  }),
 );
-const { connectors } = getDefaultWallets({
-  appName: 'My RainbowKit App',
-  chains
-});
-const wagmiClient = createClient({
-  autoConnect: true,
-  connectors,
-  provider
-})
 
 export default function App({ Component, pageProps }) {
   return (
-    <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider theme={darkTheme()} chains={chains}>
+    <WagmiConfig client={client}>
+      <ConnectKitProvider>
         <ContextWrapper>
-          <div className='w-full min-h-screen bg-white'>
+          <div className='w-full h-auto bg-stake-800'>
             <div className='w-11/12 mx-auto'>
               <Nav />
               <Component {...pageProps} />
+              <Footer />
               <ToastContainer
                 position="bottom-right"
                 autoClose={5000}
@@ -57,7 +49,7 @@ export default function App({ Component, pageProps }) {
             </div>
           </div>
         </ContextWrapper>
-      </RainbowKitProvider>
+      </ConnectKitProvider>
     </WagmiConfig>
   )
 }

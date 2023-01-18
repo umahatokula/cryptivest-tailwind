@@ -4,10 +4,23 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
-        primary: {
+          'stake': {
+          50: "#efecf8",
+          100: "#cec7e6",
+          200: "#aba2d7",
+          300: "#897dc9",
+          400: "#6759bb",
+          500: "#4b40a2",
+          600: "#38327e",
+          700: "#272459",
+          800: "#161635",
+          900: "#070713"
+        },
+        'primary': {
           50: '#f8e4ff',
           100: '#e2b4ff',
           200: '#ce83fb',
@@ -19,7 +32,7 @@ module.exports = {
           800: '#2f014b',
           900: '#12001d',
         },
-        accent: {
+        'accent': {
           50: '#ffe9df',
           100: '#ffc6b2',
           200: '#fca182',
