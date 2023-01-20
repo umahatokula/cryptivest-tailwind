@@ -1,5 +1,5 @@
-// export const CONTRACT_ADDRESS = '0x8B3bCcf1512910ba0FD1eAFaDd7bF34BA2BA7e91' // polygon mumbai
-export const CONTRACT_ADDRESS = '0x5FbDB2315678afecb367f032d93F642f64180aa3' // hardhat
+export const CONTRACT_ADDRESS = '0xF8c6A9CA2182E1814939D9c2d8c64Ee79f9F5652' // polygon mumbai
+// export const CONTRACT_ADDRESS = '0x5FbDB2315678afecb367f032d93F642f64180aa3' // hardhat
 export const CONTRACT_ABI = [
     {
       "inputs": [],

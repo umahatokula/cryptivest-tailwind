@@ -75,6 +75,17 @@ export default function Home() {
     })
   }
 
+  const withdraw = async(positionId) => {
+    const signer = await fetchSigner()
+    const contract = getContract({
+      address: CONTRACT_ADDRESS,
+      abi: CONTRACT_ABI,
+      signerOrProvider: signer,
+    })
+
+    await contract.connect(signer).closePosition(positionId)
+  }
+
   useEffect(() => {
     if (!signer) return
     getAssetIds();
@@ -89,7 +100,7 @@ export default function Home() {
   return (
     <div>
       <div className="w-full md:max-w-3xl mb-20 mx-auto">
-      
+
         <p className="font-bold tracking-widest text-transparent text-sm mt-2 mb-12 uppercase bg-clip-text bg-gradient-to-r from-[#ffd900] to-[#39FF14] text-center md:mb-2 md:mt-18">stakeon</p>
         <p className="p-2 text-5xl text-center font-black leading-snug md:text-6xl bg-clip-text text-white">CryptiVest Defi Staking</p>
         <p className="tracking-widest text-xg mt-12 text-center font-thin md:text-lg md:mt-10 animate-text bg-clip-text text-transparent bg-gradient-to-r from-sky-200 via-blue-500 to-blue-700">Dedicated To Increasing User Staking Income</p>
@@ -110,7 +121,7 @@ export default function Home() {
           assets.length > 0 ? (
             assets.reverse().map((asset,idx) => (
               <div key={idx} className="space-y-4">
-                <AssetCard asset={asset} />
+                <AssetCard asset={asset} withdraw={withdraw} />
               </div>
             ))
           ) : (

@@ -10,6 +10,9 @@ import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import { ContextWrapper } from '@/contexts/ContextWrapper';
 
+import { ThemeProvider } from 'next-themes'
+
+
 
 const alchemyId = process.env.ALCHEMY_ID;
 
@@ -29,25 +32,27 @@ export default function App({ Component, pageProps }) {
     <WagmiConfig client={client}>
       <ConnectKitProvider>
         <ContextWrapper>
-          <div className='w-full h-auto bg-stake-800'>
-            <div className='w-11/12 mx-auto'>
-              <Nav />
-              <Component {...pageProps} />
-              <Footer />
-              <ToastContainer
-                position="bottom-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="dark"
-              />
+          <ThemeProvider>
+            <div className='w-full h-auto bg-stake-800'>
+              <div className='w-11/12 mx-auto'>
+                <Nav />
+                <Component {...pageProps} />
+                <Footer />
+                <ToastContainer
+                  position="bottom-right"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="dark"
+                />
+              </div>
             </div>
-          </div>
+          </ThemeProvider>
         </ContextWrapper>
       </ConnectKitProvider>
     </WagmiConfig>
