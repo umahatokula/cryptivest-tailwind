@@ -24,6 +24,7 @@ export default function Home() {
   // assets
   const [assetIds, setAssetIds] = useState([])
   const [assets, setAssets] = useState([])
+  const [loading, setLoading] = useState(false)
   
   const toWei = ether => ethers.utils.parseEther(ether)
   const toEther = wei => ethers.utils.formatEther(wei)
@@ -83,7 +84,11 @@ export default function Home() {
       signerOrProvider: signer,
     })
 
-    await contract.connect(signer).closePosition(positionId)
+    const tx = await contract.connect(signer).closePosition(positionId)
+    setLoading(true)
+    await tx.wait()
+    setLoading(false)
+    getAssets(assetIds);
   }
 
   useEffect(() => {
@@ -121,7 +126,7 @@ export default function Home() {
           assets.length > 0 ? (
             assets.reverse().map((asset,idx) => (
               <div key={idx} className="space-y-4">
-                <AssetCard asset={asset} withdraw={withdraw} />
+                <AssetCard asset={asset} withdraw={withdraw} loading={loading} />
               </div>
             ))
           ) : (

@@ -1,10 +1,6 @@
 import React from 'react'
 
-type LayoutProps = {
-  children: React.ReactNode; // 👈️ type children
-};
-
-function Layout(props: LayoutProps) {
+function Layout(props) {
   return <div>{props.children}</div>;
 }
 
