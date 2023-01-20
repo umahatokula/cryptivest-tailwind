@@ -6,9 +6,10 @@ import { useAccount } from 'wagmi'
 import { useIsMounted } from '../hooks/useIsMounted';
 import { ConnectKitButton } from "connectkit";
 import MobileMenu from './MobileMenu';
+import ThemeChanger from './ThemeChanger';
 
 function Nav() {
-
+  
   const mounted = useIsMounted();
 
   const { isConnected } = useAccount();
@@ -38,7 +39,7 @@ function Nav() {
 
             {/* Toggle Theme Button */}
             <div className="flex justify-center items-center py-1 px-2">
-              <RiMoonFill size={25} color="#ccc" />
+              <ThemeChanger />
             </div>
 
             {/* Connection Status */}              

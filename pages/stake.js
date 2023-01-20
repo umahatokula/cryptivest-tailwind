@@ -134,12 +134,12 @@ function Stake() {
     return (
         <div className="w-full md:w-10/12 mb-20 mx-auto">
             <div className="flex flex-row flex-wrap">
-                <div className="bg-[#272459] p-10 w-full mb-4 md:w-2/3 rounded-[20px] md:mt-0 md:mb-4 md:p-16 md:space-y-4">
+                <div className="bg-[#272459]  p-10 w-full mb-4 md:w-2/3 rounded-[20px] md:mt-0 md:mb-4 md:p-16 md:space-y-4 dark:bg-dark-700 dark:border-dark-800">
                     {
                         isConnected ? (
                             <>
                             <div>
-                                <p className="text-2xl text-white font-extrabold md:text-4xl md:my-4">Stake ETH Tokens</p>
+                                <p className="text-2xl text-white font-extrabold md:text-4xl md:my-4">Stake ETH</p>
 
                                 {/* Staking length buttons */}
                                 <div className="flex flex-wrap justify-start items-center my-6">
@@ -198,11 +198,11 @@ function Stake() {
                     
                 </div>
                 <div className="flex-col w-full md:w-1/3">
-                    <div className="bg-[#272459] p-10 rounded-[20px] md:mt-0 mb-4 md:mr-0 md:ml-4 md:px-10 md:py-5 md:space-y-4">
+                    <div className="bg-[#272459] p-10 rounded-[20px] md:mt-0 mb-4 md:mr-0 md:ml-4 md:px-10 md:py-5 md:space-y-4 dark:bg-dark-700 dark:border-dark-800">
                         <p className="text-2xl my-4 text-white font-semibold">$9,574,20.84</p>
                         <p className="text-lg my-4 text-[#aaa6f5]">Total Value Locked</p>
                     </div>
-                    <div className="bg-[#272459] p-10 rounded-[20px] md:mx-4 md:mr-0 md:ml-4 md:px-10 md:py-5 md:space-y-4">
+                    <div className="bg-[#272459] p-10 rounded-[20px] md:mx-4 md:mr-0 md:ml-4 md:px-10 md:py-5 md:space-y-4 dark:bg-dark-700 dark:border-dark-800">
                         <p className="text-2xl my-4 text-white font-semibold">7.5%</p>
                         <p className="text-lg my-4 text-[#aaa6f5]">APY</p>
                     </div>

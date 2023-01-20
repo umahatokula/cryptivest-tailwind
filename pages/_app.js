@@ -32,8 +32,8 @@ export default function App({ Component, pageProps }) {
     <WagmiConfig client={client}>
       <ConnectKitProvider>
         <ContextWrapper>
-          <ThemeProvider>
-            <div className='w-full h-auto bg-stake-800'>
+          <ThemeProvider enableSystem={true} attribute="class">
+            <div className='w-full h-auto bg-stake-800 dark:bg-dark-800'>
               <div className='w-11/12 mx-auto'>
                 <Nav />
                 <Component {...pageProps} />
