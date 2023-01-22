@@ -11,6 +11,7 @@ import { fetchSigner } from '@wagmi/core'
 import { getContract, getProvider } from '@wagmi/core'
 import { CONTRACT_ABI, CONTRACT_ADDRESS } from '@/constants'
 import { ethers } from 'ethers'
+import { notify } from '@/utils/helpers'
 
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
   // assets
   const [assetIds, setAssetIds] = useState([])
   const [assets, setAssets] = useState([])
+  const [assetToWithdraw, setAssetToWithdraw] = useState()
   const [loading, setLoading] = useState(false)
   
   const toWei = ether => ethers.utils.parseEther(ether)
@@ -37,70 +39,92 @@ export default function Home() {
   
   const getAssetIds = async () => {
 
-    const signer = await fetchSigner()
-    const contract = getContract({
-      address: CONTRACT_ADDRESS,
-      abi: CONTRACT_ABI,
-      signerOrProvider: signer,
-    })
+    // try {
+      const signer = await fetchSigner()
+      const contract = getContract({
+        address: CONTRACT_ADDRESS,
+        abi: CONTRACT_ABI,
+        signerOrProvider: signer,
+      })
 
 
-    const assetIds = await contract.connect(signer).getPositionIdsForAddress(address)
-    setAssetIds(assetIds)
+      const assetIds = await contract.connect(signer).getPositionIdsForAddress(address)
+      setAssetIds(assetIds)
+    // } catch (error) {
+    //   notify('Could not fetch data', 'error')
+    // }
   }
   
   const getAssets = async (ids) => {
 
-    const signer = await fetchSigner()
-    const contract = getContract({
-      address: CONTRACT_ADDRESS,
-      abi: CONTRACT_ABI,
-      signerOrProvider: signer,
-    })
+    try {
+      if(isConnected) {
+        
+        setAssets([])
 
-    const queriedAssets = await Promise.all(
-      ids.map(id => contract.connect(signer).getPositionById(id))
-    )
+        const signer = await fetchSigner()
+        const contract = getContract({
+          address: CONTRACT_ADDRESS,
+          abi: CONTRACT_ABI,
+          signerOrProvider: signer,
+        })
 
-    queriedAssets.map(async asset => {
-      const parsedAsset = {
-        positionId: asset.positionId,
-        percentInterest: Number(asset.percentInterest) / 100,
-        daysRemaining: calcDaysRemaining( Number(asset.unlockDate) ),
-        etherInterest: ethers.utils.formatEther(asset.weiInterest),
-        etherStaked: ethers.utils.formatEther(asset.weiStaked),
-        open: asset.open,
+        const queriedAssets = await Promise.all(
+          ids.map(id => contract.connect(signer).getPositionById(id))
+        )
+
+        queriedAssets.map(async asset => {
+          const parsedAsset = {
+            positionId: asset.positionId,
+            percentInterest: Number(asset.percentInterest) / 100,
+            daysRemaining: calcDaysRemaining( Number(asset.unlockDate) ),
+            etherInterest: ethers.utils.formatEther(asset.weiInterest),
+            etherStaked: ethers.utils.formatEther(asset.weiStaked),
+            open: asset.open,
+          }
+
+          setAssets(prev => [...prev, parsedAsset])
+        })
       }
-
-      setAssets(prev => [...prev, parsedAsset])
-    })
+    } catch (error) {
+      
+    }
   }
 
   const withdraw = async(positionId) => {
-    const signer = await fetchSigner()
-    const contract = getContract({
-      address: CONTRACT_ADDRESS,
-      abi: CONTRACT_ABI,
-      signerOrProvider: signer,
-    })
 
-    const tx = await contract.connect(signer).closePosition(positionId)
-    setLoading(true)
-    await tx.wait()
-    setLoading(false)
-    getAssets(assetIds);
+    // set asset that will be withdrawn
+    try {
+      if(isConnected) {
+        setAssetToWithdraw(positionId)
+
+        const signer = await fetchSigner()
+        const contract = getContract({
+          address: CONTRACT_ADDRESS,
+          abi: CONTRACT_ABI,
+          signerOrProvider: signer,
+        })
+
+        const tx = await contract.connect(signer).closePosition(positionId)
+        setLoading(true)
+        await tx.wait()
+        setLoading(false)
+        getAssets(assetIds);
+      }
+    } catch (error) {
+      console.log("🚀 ~ file: index.js:104 ~ withdraw ~ error", error)
+      
+    }
   }
 
   useEffect(() => {
     if (!signer) return
     getAssetIds();
-    console.log(signer);
   }, [signer])
 
   useEffect(() => {
     getAssets(assetIds);
-    console.log(signer);
-  }, [assetIds, address])
+  }, [assetIds, address, isConnected])
 
   return (
     <div>
@@ -113,7 +137,7 @@ export default function Home() {
         {/* call to action */}
         <div className="flex w-full mt-24 justify-center items-center space-x-4">
           <Link href="/stake" className="bg-gradient-to-br from-[#0047ff] to-[#57048a] px-10 py-3 rounded-full text-white font-black hover:bg-red-300">Start Staking</Link>
-          <Link href="/tiers" className="bg-transparent border-2 border-white px-10 py-3 rounded-full text-white font-black">Tiers</Link>
+          <Link href="/about" className="bg-transparent border-2 border-white px-10 py-3 rounded-full text-white font-black">Learn More</Link>
         </div>
       </div>
 
@@ -126,7 +150,7 @@ export default function Home() {
           assets.length > 0 ? (
             assets.reverse().map((asset,idx) => (
               <div key={idx} className="space-y-4">
-                <AssetCard asset={asset} withdraw={withdraw} loading={loading} />
+                <AssetCard asset={asset} withdraw={withdraw} loading={loading} assetToWithdraw={assetToWithdraw} />
               </div>
             ))
           ) : (

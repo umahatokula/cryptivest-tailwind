@@ -15,17 +15,17 @@ return (
                         <span className="uppercase px-4 text-xl text-lime-500">Menu</span>
                         <ul className="space-y-7 mb-12 px-4 mt-8">
                             <li>
-                                <Link href="/" className="flex text-white text-3xl font-bold hover:text-[#351626] transition">
+                                <Link href="/" className="flex text-white text-2xl font-bold hover:underline transition">
                                     Home
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/stake" className="flex text-white text-3xl font-bold hover:text-[#351626] transition">
+                                <Link href="/stake" className="flex text-white text-2xl font-bold hover:underline transition">
                                     Stake
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/tiers" className="flex text-white text-3xl font-bold hover:text-[#351626] transition">
+                                <Link href="/tiers" className="flex text-white text-2xl font-bold hover:underline transition">
                                     Tiers
                                 </Link>
                             </li>

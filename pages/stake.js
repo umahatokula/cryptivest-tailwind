@@ -139,7 +139,7 @@ function Stake() {
                         isConnected ? (
                             <>
                             <div>
-                                <p className="text-2xl text-white font-extrabold md:text-4xl md:my-4">Stake ETH</p>
+                                <p className="text-2xl text-white font-extrabold md:text-4xl md:my-4">Stake MATIC</p>
 
                                 {/* Staking length buttons */}
                                 <div className="flex flex-wrap justify-start items-center my-6">
@@ -171,7 +171,6 @@ function Stake() {
                             <div className="flex justify-between items-center my-6">
                                 <div className="flex flex-col">
                                     <p className="text-white my-2"><span className="font-bold">Lock period:</span> {selectedDuration} Days</p>
-                                    <p className="text-white my-2"><span className="font-bold">Status:</span>  Unlocked</p>
                                 </div>
                                 <div className="flex flex-col">
                                     <p className="text-white my-2 text-5xl font-bold">{interestRate}%</p>
