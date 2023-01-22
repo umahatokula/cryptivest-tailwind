@@ -10,10 +10,9 @@ import {CONTRACT_ABI, CONTRACT_ADDRESS} from '../constants';
 
 function Stake() {
     const mounted = useIsMounted();
-    const router = useRouter()
 
     const { data: signer } = useSigner();
-    const { connector: activeConnector, isConnected } = useAccount()
+    const { isConnected } = useAccount()
     const contract = useContract({
       address: CONTRACT_ADDRESS,
       abi: CONTRACT_ABI,
@@ -198,12 +197,12 @@ function Stake() {
                 </div>
                 <div className="flex-col w-full md:w-1/3">
                     <div className="bg-[#272459] p-10 rounded-[20px] md:mt-0 mb-4 md:mr-0 md:ml-4 md:px-10 md:py-5 md:space-y-4 dark:bg-dark-700 dark:border-dark-800">
-                        <p className="text-2xl my-4 text-white font-semibold">$9,574,20.84</p>
-                        <p className="text-lg my-4 text-[#aaa6f5]">Total Value Locked</p>
-                    </div>
-                    <div className="bg-[#272459] p-10 rounded-[20px] md:mx-4 md:mr-0 md:ml-4 md:px-10 md:py-5 md:space-y-4 dark:bg-dark-700 dark:border-dark-800">
-                        <p className="text-2xl my-4 text-white font-semibold">7.5%</p>
-                        <p className="text-lg my-4 text-[#aaa6f5]">APY</p>
+                        <h4 className="text-lg mb-4 font-bold uppercase text-white">instructions</h4>
+                        <ol className='text-white text-md font-thin'>
+                            <li>1. Select staking duration</li>
+                            <li>2. Enter amount to stake</li>
+                            <li>3. Stake! Easy!</li>
+                        </ol>
                     </div>
                 </div>
             </div>
