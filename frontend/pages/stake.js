@@ -107,12 +107,15 @@ function Stake() {
             
     
         } catch (error) {
-            console.log("error", error.code);
-            if(error.data.code === -32000) {
+
+            if(error.data?.code === -32000) {
                 notify('Insufficient funds for gas', 'error');
                 return;
             } else if (error.code === -32603) {
                 notify('You are not authorized to stake', 'error');
+                return;
+            } else if (error.code === 'ACTION_REJECTED') {
+                notify('User rejected transaction', 'error');
                 return;
             }
 

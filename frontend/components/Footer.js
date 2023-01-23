@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react'
 import { BsFacebook, BsTwitter, BsYoutube, BsLinkedin, BsArrowUp, BsGithub } from "react-icons/bs";;
 
@@ -6,23 +7,34 @@ function Footer() {
     <div className="w-full h-full md:w-10/12 py-20 mx-auto bg-transparent space-y-5">
         <div className='flex justify-center items-center space-x-6'>
             <div className='p-2 border border-stake-700 rounded-md'>
-                <a href='' target='_blank'><BsGithub className='text-gray-300 cursor-pointer' size={18} /></a>
+                <Link href='https://github.com/umahatokula' target='_blank'><BsGithub className='text-gray-300 cursor-pointer' size={18} /></Link>
             </div>
             <div className='p-2 border border-stake-700 rounded-md'>
-                <a href='' target='_blank'><BsFacebook className='text-gray-300 cursor-pointer' size={18} /></a>
+                <a href='#' target='_blank'><BsFacebook className='text-gray-300 cursor-pointer' size={18} /></a>
             </div>
-            <div className='p-2 border border-stake-700 rounded-md'><BsLinkedin className='text-gray-300 cursor-pointer' size={18} /></div>
-            <div className='p-2 border border-stake-700 rounded-md'><BsTwitter className='text-gray-300 cursor-pointer' size={18} /></div>
-            <div className='p-2 border border-stake-700 rounded-md'><BsYoutube className='text-gray-300 cursor-pointer' size={18} /></div>
+            <div className='p-2 border border-stake-700 rounded-md'>
+                <Link href='https://www.linkedin.com/in/umaha-tokula/'><BsLinkedin className='text-gray-300 cursor-pointer' size={18} /></Link>
+            </div>
+            <div className='p-2 border border-stake-700 rounded-md'>
+                <Link href='https://twitter.com/umahatokula'><BsTwitter className='text-gray-300 cursor-pointer' size={18} /></Link>
+            </div>
         </div>
         <div className='flex justify-center items-center space-x-6 text-gray-300'>
-            <div className='p-2 cursor-pointer'>Home</div>
-            <div className='p-2 cursor-pointer'>Stake</div>
-            <div className='p-2 cursor-pointer'>Tiers</div>
-            <div className='p-2 cursor-pointer'>Contact</div>
+            <div className='p-2 cursor-pointer'>
+                <Link href='/'>Home</Link>
+            </div>
+            <div className='p-2 cursor-pointer'>
+                <Link href='/about'>About</Link>
+            </div>
+            <div className='p-2 cursor-pointer'>
+                <Link href='/stake'>Stake</Link>
+            </div>
+            <div className='p-2 cursor-pointer'>
+                <Link href='/tiers'>Tiers</Link>
+            </div>
         </div>
         <div className='flex justify-center items-center space-x-6 text-gray-300'>
-            <p className='text-center text-gray-300 text-sm'>©2022 CrytiVest</p>
+            <p className='text-center text-gray-300 text-sm'>©2023 CrytiVest</p>
         </div>
         <div className='flex justify-center items-center space-x-6 text-white pt-20'>
             <div className='cursor-pointer p-2 border border-lime-500 rounded-md hover:bg-stake-700'>
