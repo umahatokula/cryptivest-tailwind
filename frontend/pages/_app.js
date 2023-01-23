@@ -1,7 +1,7 @@
 import '@/styles/globals.css';
 import { WagmiConfig, createClient } from "wagmi";
 import { ConnectKitProvider, getDefaultClient } from "connectkit";
-import { polygonMumbai, hardhat } from "wagmi/chains";
+import { polygonMumbai } from "wagmi/chains";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,7 +17,7 @@ import { ThemeProvider } from 'next-themes'
 const alchemyId = process.env.ALCHEMY_ID;
 
 // Choose which chains you'd like to show
-const chains = [polygonMumbai, hardhat];
+const chains = [polygonMumbai];
 
 const client = createClient(
   getDefaultClient({
