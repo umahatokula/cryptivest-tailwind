@@ -9,5 +9,5 @@ Our dApp uses a secure and reliable smart contract to keep your staked funds saf
 **Note:** The APY rate and duration options may vary based on market conditions, check the dApp before making a decision
 
 
-Link to dApp - https://cryptivest-tailwind-t6b1.vercel.app/
+Link to dApp - https://cryptivest-tailwind.vercel.app
 
