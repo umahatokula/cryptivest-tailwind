@@ -1,4 +1,4 @@
-## CryptiVest
+# CryptiVest
 
 Introduce our new crypto staking dApp, CryptiVest, the perfect platform for earning passive income on your MATIC holdings. The dApp allows users to stake MATIC for a chosen duration and earn a high annual percentage yield (APY) on their investment. 
 
